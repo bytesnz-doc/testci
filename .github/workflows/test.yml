@@ -1,0 +1,13 @@
+on:
+  push: {}
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo hello event_name ${{github.event_name}} ref ${{github.ref}}
+  helloRestricted:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/release-'))
+    steps:
+      - run: echo hello
